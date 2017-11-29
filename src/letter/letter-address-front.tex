@@ -1,0 +1,39 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[11pt,landscape]{article}
+
+\usepackage[a6paper]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% remove page numbers
+\pagestyle{empty}
+
+% load fonts
+\usepackage{fontspec}
+\setmainfont{Minion Pro}
+
+\begin{document}
+
+  \begin{tikzpicture}[overlay,remember picture]
+    % address
+    \node[
+      align=left,
+      anchor=south east]
+      at ($(current page.south east)+(-2.5cm,2.5cm)$) 
+      {\Large Charles Boutin\\
+       Artist Science Lane 10\\
+       50-366 Dirac};
+    % stamp
+    \node[
+      draw,
+      rectangle,
+      minimum width=1.5cm,
+      minimum height=2cm,
+      anchor=north east] 
+      at ($(current page.north east)+(-0.75cm,-0.75cm)$) {};
+  \end{tikzpicture}
+  
+\end{document}

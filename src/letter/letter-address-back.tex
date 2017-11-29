@@ -1,0 +1,29 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[11pt,landscape]{article}
+
+\usepackage[c6paper]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% remove page numbers
+\pagestyle{empty}
+
+% load fonts
+\usepackage{fontspec}
+\setmainfont{Minion Pro}
+
+\begin{document}
+
+\begin{tikzpicture}[overlay,remember picture]
+  \node[align=center,anchor=north] at 
+    ($(current page.north)+(0,-0.5cm)$) 
+    {\Large John Perry\\
+     Main Street 1\\
+     0001 Roanoke City\\
+     Roanoke};
+\end{tikzpicture}
+
+\end{document}

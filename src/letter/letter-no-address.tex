@@ -1,0 +1,24 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[11pt,landscape]{article}
+
+\usepackage[c6paper]{geometry}
+
+\usepackage{tikz}
+
+% remove page numbers
+\pagestyle{empty}
+
+% load font
+\usepackage{fontspec}
+\setmainfont{Beyond Wonderland}
+
+\begin{document}
+
+\tikz[overlay,remember picture]{%
+  \node[align=center] at (current page.center) 
+    {\Huge John and Jane};
+  }
+
+\end{document}
