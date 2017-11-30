@@ -17,7 +17,7 @@ The following fonts should be installed on the system: Beyond Wonderland, One St
 
 ## Usage
 
-The cards can be used for any purpose that is allowed by the licence. A design of a companying letter is included also.
+The cards can be used for any purpose that is allowed by the licence. A design of a companying letter is included also. The Christmas wishes in the example above are in Dutch, but this can easily be changed after downloading the source code. 
 
 More information and images can be found [here](https://olivierpieters.be/projects/paper-christmas-card).
 
