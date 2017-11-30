@@ -1,0 +1,116 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+
+\usetikzlibrary{calc,decorations.markings}
+
+% node styles
+\tikzset{
+  anchornode/.style={
+    fill=black,
+    circle,
+  },
+}
+
+% counters: used to assign node names
+% (and provide useful temporary variables)
+\newcounter{id}
+\newcounter{id2}
+
+\begin{document}
+
+% draw tree: make sure nodes have 0 size by default
+\begin{tikzpicture}[every node/.style={inner sep=0pt,outer sep=0pt}] 
+  % draw all nodes (arc by arc)
+  \foreach \x in {0.0,0.03846153846,...,1.0} {
+    \path (-2,0) to[out=-60,in=240] 
+      node[anchornode,pos=\x] (\the\value{id}){} (2,0) ; 
+    \stepcounter{id}
+  }
+  \foreach \x in {0.0,0.04166666667,...,1.0} {
+    \path (2,0) to[out=210,in=-75] 
+      node[anchornode,pos=\x] (\the\value{id}){} (-3/4*2,5.25-3/4*5.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.0,0.05,...,1.0} {
+    \path (-3/4*2,5.25-3/4*5.25) to[out=-50,in=230] 
+      node[anchornode,pos=\x] (\the\value{id}){} (3/4*2,5.25-3/4*5.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.0,0.0625,...,1.0} {
+    \path (3/4*2,5.25-3/4*5.25) to[out=200,in=-65,looseness=1.1] 
+      node[anchornode,pos=\x] (\the\value{id}){} (-2.2/4*2,5.25-2.2/4*5.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.083333333,0.166666666,...,1.0} {
+    \path (-2.2/4*2,5.25-2.2/4*5.25) to[out=-50,in=230,looseness=1.1] 
+      node[anchornode,pos=\x] (\the\value{id}){} (2.2/4*2,5.25-2.2/4*5.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0,0.083333333,0.166666666,...,1.0} {
+    \path (2.2/4*2,5.25-2.2/4*5.25) to[out=210,in=-90,looseness=1.2] 
+      node[anchornode,pos=\x] (\the\value{id}){} (-1.4/4*2,5.25-1.4/4*5.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.0,0.125,...,1.0} {
+    \path (-1.4/4*2,5.25-1.4/4*5.25) to[out=-60,in=240,looseness=1.3] 
+      node[anchornode,pos=\x] (\the\value{id}){} (1.4/4*2,5.25-1.4/4*5.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.1666666,0.3333332,...,1.0} {
+    \path (1.4/4*2,5.25-1.4/4*5.25) to[out=210,in=270,looseness=1.4]
+      node[anchornode,pos=\x] (\the\value{id}){} (0,5.25-0.8/4*5.25);  
+    \stepcounter{id}
+  }
+
+  % star at the top
+  \path (0,5.25-0.8/4*5.25) node (top) {};
+  \setcounter{id}{0}
+  \foreach \x in {90,162,...,378} {
+    \draw (top) ++(\x:0.5) node[anchornode] (c\the\value{id}) {};
+    \stepcounter{id}
+  }
+  
+  % pot at bottom
+  \setcounter{id}{124}
+  \foreach \x in {0.0,0.1666,...,1.0} {
+    \path (-0.625,-1.25) to[out=-30,in=-150]
+      node[anchornode,pos=\x] (\the\value{id}) {} (0.625,-1.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.1666,0.3332,...,1.0} {
+    \path (0.625,-1.25) to[out=-110,in=90]
+      node[anchornode,pos=\x] (\the\value{id}) {} (0.5,-2.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.1666,0.3332,...,1.0} {
+    \path (0.5,-2.25) to[]
+      node[anchornode,pos=\x] (\the\value{id}) {} (-0.5,-2.25);  
+    \stepcounter{id}
+  }
+  \foreach \x in {0.0,0.166,...,1.0} {
+    \path (-0.5,-2.25) to[in=-70,out=90]
+      node[anchornode,pos=\x] (\the\value{id}) {} (-0.625,-1.25);  
+    \stepcounter{id}
+  }
+  
+  % baubles
+  \setcounter{id2}{0}
+  % Draws all baubles using 2 loops:
+  %   Outer loop iterates over baubles.
+  %   Each bauble is drawn form the average coordinate of two coordinates
+  %   corrected by an offset.
+  %   Iterators: node1/node2/xoffset/yoffset
+  %   The inner loop draws nodes of each bauble.
+  \foreach \n/\m/\x/\y in {22/22/0/-0.35,0/50/0.35/-0.35,26/70/-0.35/-0.15,50/86/0.35/-0.3,70/98/-0.35/-0.1,86/110/0.3/-0.5,98/118/-0.35/-0.15} {
+    \path ($0.5*(\n)+0.5*(\m)+(\x,\y)$) node (bauble\the\value{id2}) {};
+    \setcounter{id}{0}
+    \foreach \d in {30,90,...,360} {
+      \draw (bauble\the\value{id2}) ++(\d:0.2) node[anchornode] (bauble\the\value{id2}-\the\value{id}) {};
+      \stepcounter{id}
+    }
+    \stepcounter{id2}
+  }
+\end{tikzpicture}
+
+\end{document}

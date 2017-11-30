@@ -1,0 +1,52 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[oneside,10pt]{article}
+
+\usepackage{calc}
+\usepackage[dutch]{babel}
+
+% paper size
+\usepackage[a6paper,noheadfoot,margin=1cm]{geometry}
+
+% drawing
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning}
+
+% url for copyright
+\usepackage{hyperref}
+
+% fonts
+\usepackage{fontspec}
+\setmainfont{Minion Pro}
+\newfontfamily{\WichesFF}{Beyond Wonderland}
+\newfontfamily{\OneStarryNightFF}{One Starry Night}
+\newcommand{\HUGE}{\fontsize{60}{48}\selectfont}
+
+% remove page numbers
+\pagestyle{empty}
+
+% include images/pdf files
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+\definecolor{baublered}{HTML}{c60000}
+\definecolor{grey}{HTML}{808080}
+
+\begin{document}
+
+% front side: tree and wishes
+\begin{tikzpicture}[remember picture,overlay]
+  \draw (current page.center)++(0,1) node[anchor=center] (tree) {\includegraphics[height=0.8\textheight]{christmas-tree}};
+  \node[below=0cm of tree,baublered] {\HUGE\OneStarryNightFF Fijne Feestdagen};
+\end{tikzpicture}
+
+\clearpage
+
+% back side: copyright
+\begin{tikzpicture}[remember picture,overlay]
+  \node[above=1cm of current page.south] (url) {\color{grey}\tiny\url{https://olivierpieters.be/projects/paper_christmas_card}};
+  \node[above=0cm of url] (ESD) {\color{grey}\tiny\copyright\ 2017 Olivier Pieters};
+\end{tikzpicture}
+
+\end{document}

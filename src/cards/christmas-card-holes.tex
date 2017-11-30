@@ -1,0 +1,54 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[oneside,10pt]{article}
+
+\usepackage{calc}
+\usepackage[dutch]{babel}
+
+% paper format
+\usepackage[a6paper,noheadfoot,margin=1cm]{geometry}
+
+% drawing, positioning
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning}
+
+% url
+\usepackage{hyperref}
+
+% fonts
+\usepackage{fontspec}
+\setmainfont{Minion Pro}
+\newfontfamily{\WichesFF}{Beyond Wonderland}
+\newfontfamily{\OneStarryNightFF}{One Starry Night}
+\newcommand{\HUGE}{\fontsize{60}{48}\selectfont}
+
+% remove page numbers
+\pagestyle{empty}
+
+% include images
+\usepackage{graphicx}
+
+% custom colours
+\usepackage{xcolor}
+\definecolor{ballred}{HTML}{c60000}
+\definecolor{grey}{HTML}{808080}
+
+\begin{document}
+
+% back side: puncturing pattern and copyright
+\begin{tikzpicture}[remember picture,overlay]
+  \draw (current page.center)++(0,1) node[anchor=center] (tree) {\scalebox{-1}[1]{\includegraphics[height=0.8\textheight]{christmas-tree-edges}}};
+  \node[above=0.5cm of current page.south] (url) {\color{grey}\tiny\url{https://olivierpieters.be/projects/paper-christmas-card}};
+  \node[above=0cm of url] (ESD) {\color{grey}\tiny\copyright\ 2017 Olivier Pieters};
+\end{tikzpicture}
+
+\clearpage
+
+% front page: make sure message is below tree by drawing an invisible tree
+\begin{tikzpicture}[remember picture,overlay]
+  \path (current page.center)++(0,1) node[anchor=center] (tree) {\phantom{\includegraphics[height=0.8\textheight]{christmas-tree-edges}}};
+  \node[below=0cm of tree,ballred] {\HUGE\OneStarryNightFF Fijne Feestdagen};
+\end{tikzpicture}
+
+\end{document}
