@@ -6,7 +6,7 @@ These are the design files for the Christmas card that is depicted below. Detail
 
 <div>
   <img src="images/christmas-card-design.png" alt="Christmas card mock-up" width="300px"/>
-  <img src="images/christmas-card-compressed.jpg" alt="Christmas card" width="300px"/>
+  <img src="images/finished-card-compressed.jpg" alt="Christmas card" width="300px"/>
 </div>
 
 ## Installation
