@@ -1,0 +1,45 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc,decorations.markings}
+
+\tikzset{
+  puncture/.style={minimum width=2pt,circle,draw,inner sep=0pt,outer sep=0pt},
+  line/.style={line width=2pt,line cap=round,brown},
+}
+
+\begin{document}
+\begin{tikzpicture}[every node/.style={inner sep=0pt,outer sep=0pt}]
+  \draw[line] (-3.9,0.45) node[puncture] {}
+    -- (-2.2,  1.9)  node[puncture] {} -- (-2.25, 1.5)  node[puncture] {} 
+    -- (-1.05, 1.55) node[puncture] {} -- (-0.4,  1.1)  node[puncture] {} 
+    -- ( 2.1,  1.25) node[puncture] {} -- ( 2.8,  0.35) node[puncture] {}
+    -- ( 2.45,-0.7)  node[puncture] {} -- ( 2.75,-1.4)  node[puncture] {} 
+    -- ( 2.6, -2.85) node[puncture] {} -- ( 2.35,-2.85) node[puncture] {} 
+    -- ( 2.3, -1.6)  node[puncture] {} -- ( 2.05,-1.4)  node[puncture] {}
+    -- ( 1.35,-2.85) node[puncture] {} -- ( 1.05,-2.85) node[puncture] {} 
+    -- ( 1.65,-1.15) node[puncture] {} -- ( 1.5, -1.05) node[puncture] {} 
+    -- ( 1.15,-0.55) node[puncture] {} -- ( 0.35,-0.9)  node[puncture] {}
+    -- (-1.05,-0.9)  node[puncture] {} -- (-1.2, -2.85) node[puncture] {} 
+    -- (-1.45,-2.85) node[puncture] {} -- (-1.65,-0.6)  node[puncture] {} 
+    -- (-2.45, 0.35) node[puncture] {} -- (-3.5,  0.2)  node[puncture] {}
+    -- cycle;
+  \draw[line] (-2.85,1.35) node[puncture] {} -- (-2.75,1.9) node[puncture] {} -- (-2.8,1.67) node[puncture] {};
+  \draw[line] (-2.8,1.67) -- (-3.75,1.8) 
+    node[puncture,pos=0.25]  (a1) {} 
+    node[puncture,pos=0.625] (a2) {} 
+    node[puncture,pos=1.0]   (a3) {};
+  \foreach \x in {1,...,3} {
+    \draw[line,brown] (a\x.center) -- ++(-0.25,0.4) node[puncture] {};
+  }
+  \draw[line] (-2.75,1.9) -- (-1.45,2.52) 
+    node[puncture,pos=0.25] (a4) {} 
+    node[puncture,pos=0.625] (a5) {} 
+    node[puncture,pos=1.0] (a6) {};
+  \foreach \x in {4,...,6} {
+    \draw[line] (a\x.center) -- ++(0.1,0.5) node[puncture] {};
+  }
+  \path (2.1,1.25) -- (2.8,0.35) coordinate[pos=.6] (t1);
+  \draw[line,brown] (t1) node[puncture] {} -- ++(0.4,0) node[puncture] {} -- ++(0.25,-0.25) node[puncture] {}; 
+\end{tikzpicture}
+\end{document}
