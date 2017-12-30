@@ -1,0 +1,170 @@
+\documentclass{article}
+
+\usepackage[a5paper]{geometry}
+
+\usepackage{tikz}
+
+\usetikzlibrary{calc,decorations.markings}
+
+\def\decostep{0.025}
+
+\tikzset{
+  anchornode/.style={
+    forestgreen,
+    %circle,
+    minimum width=0pt
+  },
+  treeline/.style={
+    forestgreen
+  },
+  starline/.style={
+    staryellow
+  },
+  stem/.style={
+    treebrown
+  },
+  sphereline/.style={
+    ballred
+  },
+  dropline/.style={
+    skyblue
+  },
+  puncture/.style={
+    draw, 
+    black,
+    fill=black,
+    circle,
+    minimum width=1pt,
+    anchor=center,
+    anchor=center,
+  },
+  bauble/.style={
+    decoration={
+      markings,
+      mark=between positions 0 and 1.00 step \decostep with %
+        {\node[puncture] 
+          (\the\value{type}-\pgfkeysvalueof{%
+           /pgf/decoration/mark info/sequence number}){};
+        }
+    },
+    postaction={decorate}
+  }
+}
+
+\usepackage{xcolor}
+
+\definecolor{forestgreen}{HTML}{3E8D3E}
+\definecolor{treebrown}{HTML}{5e2f0d}
+\definecolor{staryellow}{HTML}{ffd500}
+\definecolor{ballred}{HTML}{c60000}
+\definecolor{skyblue}{HTML}{0000b2}
+\definecolor{rebeccapurple}{HTML}{663399}
+
+\newcounter{id}
+\newcounter{type}
+\setcounter{id}{0}
+\newcounter{id2}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{tikzpicture}[remember picture,overlay] 
+  \draw (current page.west) -- (current page.east);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[
+  every node/.style={inner sep=0pt,outer sep=0pt,minimum width=0pt},
+  remember picture,
+  overlay,
+  scale=0.65,
+  anchor=center,
+  shift={($(-6.375,-\paperwidth/2+0.75cm)+(current page.center)$)},
+  ] 
+  
+  % draw all baubles
+  % upside-down drip bauble
+  \path[bauble] (0,0) 
+    to[out=0,in=90] ++(2,-2) 
+    to[out=-90,in=85] ++(-2,-6) 
+    to[out=95,in=-90] ++(-2,6) 
+    to [out=90,in=180] (0,0);
+  \stepcounter{id}
+
+  \setcounter{id}{1}
+  \setcounter{id2}{21}
+  \foreach \x in {0,1,...,19} {
+    \draw[skyblue] (\the\value{type}-\the\value{id}) 
+      -- (\the\value{type}-\the\value{id2});
+    \stepcounter{id}
+    \stepcounter{id2}
+  }
+
+  % sphere bauble
+  \stepcounter{type}
+  \path[bauble] (5.75,-4) circle (3);
+  \setcounter{id}{1}
+  \setcounter{id2}{21}
+  \foreach \x in {0,1,...,19} {
+    \draw[sphereline] (\the\value{type}-\the\value{id}) 
+      -- (\the\value{type}-\the\value{id2});
+    \stepcounter{id}
+    \stepcounter{id2}
+  }
+
+  % star bauble
+  % draw app anchor nodes
+  \foreach \x in {0,1,...,5} {
+    \path (12,-3) ++(30+60*\x:3) coordinate (s\x);
+    \path (12,-3) ++(60*\x:1.7320508076) coordinate (si\x); % radius: sqrt(3)
+  }
+  \stepcounter{type}
+  % connect all nodes and draw interconnects
+  \path[bauble] (si0) -- (s0) -- (si1) -- (s1) -- (si2) 
+    -- (s2) -- (si3) -- (s3) -- (si4) -- (s4) -- (si5) 
+    -- (s5) -- cycle; 
+  \setcounter{id}{1}
+  \setcounter{id2}{21}
+  \foreach \x in {0,1,...,19} {
+    \draw[starline] (\the\value{type}-\the\value{id}) 
+      -- (\the\value{type}-\the\value{id2});
+    \stepcounter{id}
+    \stepcounter{id2}
+  }   
+  
+  % draw connections from pine branch to baubles
+  \draw[rebeccapurple] (0-1) -- ++(0,3.25) node[pos=0,puncture] {} node[pos=1,puncture] (hook1) {};
+  \draw[rebeccapurple] (1-11) -- ++(0,3.25) node[pos=0,puncture] {} node[pos=1,puncture] (hook2) {};
+  \draw[rebeccapurple] (2-11) -- ++(0,3) node[pos=0,puncture] {} node[pos=1,puncture] (hook3) {};
+  
+  % draw pine branch
+  \stepcounter{type}
+  % branch
+  \draw[%
+    decoration={
+      markings,
+      mark=between positions 0 and 0.92 step 0.04 with {%
+        \draw[treeline] (0,0) -- ++(45:0.875) node[pos=0,puncture] {} node[pos=1,puncture] {};
+        \draw[treeline] (0,0) -- ++(-45:0.875) node[pos=0,puncture] {} node[pos=1,puncture] {};
+      },
+      mark=at position 0.96 with {%
+        \draw[treeline] (0,0) -- ++(45:0.5833333) node[pos=0,puncture] {} node[pos=1,puncture] {};
+        \draw[treeline] (0,0) -- ++(-45:0.5833333) node[pos=0,puncture] {} node[pos=1,puncture] {};
+      },
+      mark=at position 0.99 with {%
+        \draw[treeline] (0,0) -- ++(45:0.2916666) node[pos=0,puncture] {} node[pos=1,puncture] {};
+        \draw[treeline] (0,0) -- ++(-45:0.2916666) node[pos=0,puncture] {} node[pos=1,puncture] {};
+        \draw[treeline] (0,0) -- ++(0.2916666,0) node[pos=0,puncture] {} node[pos=1,puncture] {};
+      },
+    },
+    postaction={decorate},
+    stem] (15,2) 
+      to[out=155,in=-10] (hook3) 
+      to[out=170,in=0] (hook2) 
+      to[out=180,in=-15] (hook1) 
+      to[out=165,in=-20] (-1.25,3.7);
+\end{tikzpicture}
+
+
+\end{document}
