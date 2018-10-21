@@ -1,10 +1,28 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
 \documentclass{article}
 
 \usepackage[a5paper]{geometry}
 
 \usepackage{tikz}
 
-\usetikzlibrary{calc,decorations.markings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\usetikzlibrary{calc,decorations.markings,positioning,matrix}
+
+\usepackage{fontspec}
+\setmainfont{Source Serif Pro}
+\newfontfamily{\WichesFF}{Beyond Wonderland}
+\newfontfamily{\OneStarryNightFF}{One Starry Night}
+\newfontfamily{\MiraclousFF}{Miraculous&Christmas}
+\newcommand{\HUGE}{\fontsize{48}{38}\selectfont}
+\newcommand{\HUGEx}{\fontsize{30}{24}\selectfont}
+
+
+\definecolor{grey}{HTML}{808080}
+
 
 \def\decostep{0.025}
 
@@ -69,10 +87,6 @@
 
 \begin{document}
 
-\begin{tikzpicture}[remember picture,overlay] 
-  \draw (current page.west) -- (current page.east);
-\end{tikzpicture}
-
 
 \begin{tikzpicture}[
   every node/.style={inner sep=0pt,outer sep=0pt,minimum width=0pt},
@@ -83,12 +97,15 @@
   shift={($(-6.375,-\paperwidth/2+0.75cm)+(current page.center)$)},
   ] 
   
+  % draw fold line 
+  \draw (current page.west) -- (current page.east);
+  
   % draw all baubles
   % upside-down drip bauble
   \path[bauble] (0,0) 
     to[out=0,in=90] ++(2,-2) 
-    to[out=-90,in=85] ++(-2,-6) 
-    to[out=95,in=-90] ++(-2,6) 
+    to[out=-90,in=80] ++(-2,-6) 
+    to[out=100,in=-90] ++(-2,6) 
     to [out=90,in=180] (0,0);
   \stepcounter{id}
 
@@ -164,6 +181,26 @@
       to[out=170,in=0] (hook2) 
       to[out=180,in=-15] (hook1) 
       to[out=165,in=-20] (-1.25,3.7);
+      
+  % draw copyright
+  \node[below=0.5cm of current page.north,rotate=180,anchor=south,align=center] {\color{grey}\tiny\copyright\ 2018 Olivier Pieters\\\color{grey}\tiny\url{https://olivierpieters.be/projects/paper-christmas-card-2018}};
+\end{tikzpicture}
+
+\clearpage
+
+\begin{tikzpicture}[remember picture,overlay] 
+  % draw fold line 
+  \draw (current page.west) -- (current page.east);
+  
+  % draw wishes
+  \node[anchor=center] at ($(current page.center)+(0,1.2\paperheight/4)$) (wish) {\MiraclousFF\Huge en};
+  \node[anchor=south,above=1cm of wish.center] {\MiraclousFF\HUGE Vrolijk Kerstfeest};
+  \node[anchor=north,below=1cm of wish.center] {\MiraclousFF\HUGE gelukkig Nieuwjaar};
+  
+  %\node[below=3.5cm of wish] {\OneStarryNightFF\HUGE familie Pieters};
+  \matrix[matrix of nodes,below=3.5cm of wish,every node/.style={font=\OneStarryNightFF\HUGEx},column sep={0.5cm}] {
+    Jean-Pierre & Karine & Olivier & Christoph \\%
+  };
 \end{tikzpicture}
 
 
